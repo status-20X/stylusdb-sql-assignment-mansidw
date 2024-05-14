@@ -1,6 +1,6 @@
 // tests/index.test.js
 
-const parseQuery = require("../../src/queryParser");
+const { parseQuery } = require("../../src/queryParser");
 
 test("Parse SQL Query", () => {
   const query = "SELECT id, name FROM sample";
@@ -11,5 +11,6 @@ test("Parse SQL Query", () => {
     whereClauses: [],
     joinTable: null,
     joinCondition: null,
+    joinType: null,
   });
 });
