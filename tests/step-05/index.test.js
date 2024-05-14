@@ -1,6 +1,6 @@
-const readCSV = require("../../src/csvReader");
-const { parseQuery } = require("../../src/queryParser");
-const executeSELECTQuery = require("../../src/index");
+const { readCSV } = require("../../src/csvReader");
+const { parseSelectQuery } = require("../../src/queryParser");
+const { executeSELECTQuery } = require("../../src/index");
 
 test("Read CSV File", async () => {
   const data = await readCSV("./sample.csv");
@@ -12,7 +12,7 @@ test("Read CSV File", async () => {
 
 test("Parse SQL Query", () => {
   const query = "SELECT id, name FROM sample";
-  const parsed = parseQuery(query);
+  const parsed = parseSelectQuery(query);
   expect(parsed).toEqual({
     fields: ["id", "name"],
     table: "sample",
@@ -20,6 +20,11 @@ test("Parse SQL Query", () => {
     joinCondition: null,
     joinTable: null,
     joinType: null,
+    groupByFields: null,
+    hasAggregateWithoutGroupBy: false,
+    isDistinct: false,
+    limit: null,
+    orderByFields: null,
   });
 });
 
@@ -35,7 +40,7 @@ test("Execute SQL Query", async () => {
 
 test("Parse SQL Query with WHERE Clause", () => {
   const query = "SELECT id, name FROM sample WHERE age = 25";
-  const parsed = parseQuery(query);
+  const parsed = parseSelectQuery(query);
   console.log(parsed);
   expect(parsed).toEqual({
     fields: ["id", "name"],
@@ -44,6 +49,11 @@ test("Parse SQL Query with WHERE Clause", () => {
     joinTable: null,
     joinCondition: null,
     joinType: null,
+    groupByFields: null,
+    hasAggregateWithoutGroupBy: false,
+    isDistinct: false,
+    limit: null,
+    orderByFields: null,
   });
 });
 
